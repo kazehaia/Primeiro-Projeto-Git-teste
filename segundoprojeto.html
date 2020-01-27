@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+	<title> Jogo </title>
+<meta charset="UTF-8">
+<meta htttp-equiv = "X-UA-Compatible" content="ie=edge">
+    <style type="text/css"> canvas { border: 1px solid #000000; } </style>
+   
+	</head>
+
+	<body  onload="incializar()">
+	<canvas id="canvas" width="600" height="480"> Navegado incompativel com HTML 5 
+		</canvas>
+
+		<script type="text/javascript">
+		var barraAltura, barraLargura, jogadorPosicaoX, velocidadeJogador, bolaDiametro, bolaPosX, bolaPosY,
+		velocidadeBola, pontosJogador, colisao; 
+		
+		function incializar()
+		{
+			barraAltura = 15;
+			barraLargura = 90;
+			pontosjogador = 0;
+			jogadorPosicaoX = (canvas.width - barraLargura) / 2;
+
+			canvas = document.getElementById("canvas");
+			context = canvas.getContext("2d");
+
+			bolaDiametro = 10;
+			bolaPosX = canvas.width / 2;
+			bolaPosY = -10;
+			  velocidadeBola = 10;
+			  colisao = false;
+
+			  document.addEventListener ('keydown', keyDown);
+			setInterval(gameLoop, 30 );
+
+		}
+		
+		function keyDown(e)
+
+		{if (e.keycode == 37)
+		
+			{ 
+				if(jogadorPosicaoX > 0) 
+			   {
+			
+				jogadorPosicaoX -= velocidadeJogador
+			   }
+			}   
+		
+		
+
+		 if(e.keycode == 39)
+
+		 { 
+			 if(jogadorPosicaoX < (canvas.widht - barraLargura))
+		 
+			{ 
+				jogadorPosicaoX += velocidadeJogador
+			 }
+		 } 
+		}
+		
+		function gameLoop()
+
+		{  
+			//LIMPA TELA
+			context.clearReact(0, 0, canvas.width, canvas.height);
+
+			//BOLA
+			context.beginPath();
+
+			context.ar (bolaPosX, bolaposY, bolaDiametro, 0, Math.PI * 2, true);
+			context.fill();
+
+				if(bolaPosY <= canvas.height)
+				{ 
+					bolaposY += velocidadeBola;
+				
+				}
+				else
+				{
+					bolaposX = Math.random() *600;
+					bolaposY = -10;
+					colisao = false;
+
+
+				}
+				//CHECAR COLISAO
+				if ((bolaPosX > jogadorPosicaoX && bolaPosX < jogadorPosicaoX + barraLargura)
+				&& bolaPosY >= canvas.height - barraAltura && colisao == false)
+		       { 
+				   pontosjogador++;
+				   colisao = true;
+			   }
+		
+			   //ESCREVE PLACAR
+			   context.font = "32pt tahoma";
+				 context.filltext(pontosjogador, canvas.width - 70, 50);
+				 
+				 //JOGADOR
+				 context.fillRect(jogadorPosicaoX, canvas.height - barraAltura, barraLargura, barraAltura);
+
+			}
+
+
+		</script>
+  
+
+</body>
+</html>
